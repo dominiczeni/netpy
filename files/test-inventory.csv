@@ -1,0 +1,3 @@
+name,hostname,platform,port,username,password,site,function,commands,jumpbox
+router1,10.254.12.1,cisco_xe,22,UN1,bogus,home,router,xe_cmds.txt,
+switch1,10.254.12.2,cisco_xe,22,UN1,bogus,home,switch,xe_cmds.txt,JB1

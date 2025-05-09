@@ -1,0 +1,15 @@
+show interface ip brief
+show running-config
+show ip
+show nameif
+show arp
+show eigrp neighbor
+show ospf neighbor
+show bgp neighbor
+show route
+show conn
+show crypto ipsec sa detail
+show crypto ikev1 sa detail
+show crypto ikev2 sa detail
+show crypto ipsec sa summary
+show vpn-sessiondb summary

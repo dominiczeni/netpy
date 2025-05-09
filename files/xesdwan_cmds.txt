@@ -1,0 +1,11 @@
+show sdwan control connections
+show sdwan control local-properties
+show sdwan system status
+show ip arp vrf 1
+show ip arp
+show ip route vrf 1
+show ip route
+show sdwan software
+show running-config
+show sdwan running-config
+show sdwan bfd sessions

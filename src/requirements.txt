@@ -1,0 +1,9 @@
+nornir
+nornir-utils
+nornir-netmiko
+Office365-REST-Python-Client
+pathlib
+datetime
+fpdf>=1.7.2
+PyPDF2>=3.0.0  # For PDF parsing (optional)
+python-docx>=0.8.11  # For DOCX parsing (optional)

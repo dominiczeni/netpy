@@ -1,0 +1,6 @@
+inventory:
+  plugin: SimpleInventory
+  options:
+    host_file: "/app/files/nornir_inventory.yaml"
+logging:
+  enabled: False

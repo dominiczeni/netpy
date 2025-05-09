@@ -1,0 +1,535 @@
+{
+  "rule_sets": [
+    {
+      "name": "Authentication and Users",
+      "description": "Ensures AAA is enabled and appropriate local users defined",
+      "category": "security",
+      "rules": [
+        {
+          "id": "AAA-01",
+          "name": "AAA Model",
+          "description": "AAA must be enabled",
+          "pattern": "aaa new-model",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "aaa new-model",
+            "context": "global",
+            "notes": "Enable AAA model for authentication"
+          }
+        },
+        {
+          "id": "AAA-02",
+          "name": "Principal User",
+          "description": "Principal user must exist",
+          "pattern": "username principal",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "username principal privilege 15 secret <password>",
+            "context": "global",
+            "notes": "Create principal user with privilege level 15"
+          }
+        },
+        {
+          "id": "AAA-03",
+          "name": "LookingPoint User",
+          "description": "LookingPoint user must exist",
+          "pattern": "username lpoint",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "username lpoint privilege 15 secret <password>",
+            "context": "global",
+            "notes": "Create LookingPoint user with privilege level 15"
+          }
+        },
+        {
+          "id": "AAA-04",
+          "name": "Password Encryption",
+          "description": "Service password-encryption must be enabled",
+          "pattern": "service password-encryption",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "service password-encryption",
+            "context": "global",
+            "notes": "Enable password encryption service"
+          }
+        },
+        {
+          "id": "AAA-05",
+          "name": "AAA Authentication Login Method",
+          "description": "Check the AAA Login Method",
+          "pattern": "aaa authentication login .+ local",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "aaa authentication login .+ local",
+            "context": "global",
+            "notes": "Configure AAA authentication login method"
+          }
+        },
+        {
+          "id": "AAA-06",
+          "name": "AAA Authorization Exec Method",
+          "description": "Check the AAA Authorization Method",
+          "pattern": "aaa authorization exec .+ local if-authenticated",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "aaa authorization exec .+ local if-authenticated",
+            "context": "global",
+            "notes": "Configure AAA authorization exec method"
+          }
+        },
+        {
+          "id": "AAA-07",
+          "name": "AAA Authorization Console",
+          "description": "Check the AAA Authorization Console",
+          "pattern": "aaa authorization console",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "aaa authorization console",
+            "context": "global",
+            "notes": "Configure AAA authorization for console"
+          }
+        },
+        {
+          "id": "AAA-08",
+          "name": "AAA Authentication on HTTP",
+          "description": "Check the AAA Authentication on HTTP",
+          "pattern": "ip http authentication aaa login-authentication .+",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "ip http authentication aaa login-authentication .+",
+            "context": "global",
+            "notes": "Configure AAA authentication for HTTP"
+          }
+        },
+        {
+          "id": "AAA-09",
+          "name": "AAA Authorization on HTTP",
+          "description": "Check the AAA Authorization on HTTP",
+          "pattern": "ip http authentication aaa exec-authorization .+",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "ip http authentication aaa exec-authorization .+",
+            "context": "global",
+            "notes": "Configure AAA authorization for HTTP"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Management Protocols",
+      "description": "Ensures Management Protocol Compliance",
+      "category": "security",
+      "rules": [
+        {
+          "id": "MGT-01",
+          "name": "SSH Source Interface",
+          "description": "Checks that SSH source interface is set to mgmt VLAN",
+          "pattern": "ip ssh source-interface .+",
+          "match_type": "exists",
+          "severity": "low",
+          "remediation": {
+            "command": "ip ssh source-interface .+",
+            "context": "global",
+            "notes": "Configure SSH source interface to management VLAN"
+          }
+        },
+        {
+          "id": "MGT-02",
+          "name": "HTTP Server is Disabled",
+          "description": "Checks to ensure HTTP server is disabled",
+          "pattern": "no ip http server",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "no ip http server",
+            "context": "global",
+            "notes": "Disable HTTP server"
+          }
+        },
+        {
+          "id": "MGT-03",
+          "name": "HTTPS Server is Disabled",
+          "description": "Checks to ensure HTTPS server is disabled",
+          "pattern": "no ip http .+-server",
+          "match_type": "exists",
+          "severity": "low",
+          "remediation": {
+            "command": "no ip http .+-server",
+            "context": "global",
+            "notes": "Disable HTTPS server"
+          }
+        },
+        {
+          "id": "MGT-04",
+          "name": "NTP Configuration",
+          "description": "NTP must be configured",
+          "pattern": "ntp server",
+          "match_type": "exists",
+          "severity": "medium",
+          "remediation": {
+            "command": "ntp server <ntp-server-ip>",
+            "context": "global",
+            "notes": "Configure NTP server"
+          }
+        },
+        {
+          "id": "MGT-05",
+          "name": "HTTP ACL Applied",
+          "description": "ACL must be applied to the HTTP server access",
+          "pattern": "ip http access-class ipv4 .+",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "ip http access-class ipv4 .+",
+            "context": "global",
+            "notes": "Apply ACL to HTTP server"
+          }
+        },
+        {
+          "id": "MGT-06",
+          "name": "Syslog Server",
+          "description": "Syslog server should be configured",
+          "pattern": "logging host .+",
+          "match_type": "exists",
+          "severity": "low",
+          "remediation": {
+            "command": "logging host <syslog-server-ip>",
+            "context": "global",
+            "notes": "Configure syslog server"
+          }
+        },
+        {
+          "id": "MGT-07",
+          "name": "SNMP v3 Group",
+          "description": "SNMPv3 group should be configured",
+          "pattern": "snmp-server group .+ v3 priv access .+",
+          "match_type": "exists",
+          "severity": "low",
+          "remediation": {
+            "command": "snmp-server group <group-name> v3 priv access <acl-name>",
+            "context": "global",
+            "notes": "Configure SNMPv3 group with privacy and access control"
+          }
+        },
+        {
+          "id": "MGT-08",
+          "name": "SNMP v2 Community",
+          "description": "SNMPv2 community should not be configured",
+          "pattern": "snmp-server community v2 .+",
+          "match_type": "absent",
+          "severity": "high",
+          "remediation": {
+            "command": "no snmp-server community v2 <community-name>",
+            "context": "global",
+            "notes": "Remove SNMPv2 community string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "VTY Line Security",
+      "description": "Rules for VTY line security",
+      "category": "security",
+      "section_pattern": "^line vty [0-9]+ [0-9]+",
+      "rules": [
+        {
+          "id": "VTY-01",
+          "name": "VTY Access Class",
+          "description": "An ACL must be attached to every VTY line",
+          "pattern": "access-class .+ in",
+          "match_type": "regex",
+          "severity": "high",
+          "remediation": {
+            "command": "access-class <acl-name> in",
+            "context": "line",
+            "notes": "Apply SSH-ACCESS ACL to VTY lines"
+          }
+        },
+        {
+          "id": "VTY-02",
+          "name": "VTY Transport",
+          "description": "SSH must be the only allowed transport",
+          "pattern": "transport input ssh",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "transport input ssh",
+            "context": "line",
+            "notes": "Configure SSH as the only allowed transport"
+          }
+        },
+        {
+          "id": "VTY-03",
+          "name": "VTY Timeouts",
+          "description": "Exec Timeouts are Present",
+          "pattern": "exec-timeout 30 0",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "exec-timeout 30 0",
+            "context": "line",
+            "notes": "Configure 30-minute exec timeout"
+          }
+        },
+        {
+          "id": "VTY-04",
+          "name": "VTY AAA Authentication",
+          "description": "AAA Authentication Method is Called",
+          "pattern": "login authentication .+",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "login authentication .+",
+            "context": "line",
+            "notes": "Configure AAA authentication for VTY lines"
+          }
+        },
+        {
+          "id": "VTY-05",
+          "name": "VTY AAA Authorization",
+          "description": "AAA Authorization Method is Called",
+          "pattern": "authorization exec .+",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "authorization exec .+",
+            "context": "line",
+            "notes": "Configure AAA authorization for VTY lines"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Console Line Security",
+      "description": "Rules for Console line security",
+      "category": "security",
+      "section_pattern": "^line con 0$",
+      "rules": [
+        {
+          "id": "CON-01",
+          "name": "Console Timeouts",
+          "description": "Exec Timeouts are Present",
+          "pattern": "exec-timeout 30 0",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "exec-timeout 30 0",
+            "context": "line",
+            "notes": "Configure 30-minute exec timeout for console"
+          }
+        },
+        {
+          "id": "CON-02",
+          "name": "Console AAA Authentication",
+          "description": "AAA Authentication Method is Called",
+          "pattern": "login authentication .+",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "login authentication .+",
+            "context": "line",
+            "notes": "Configure AAA authentication for console"
+          }
+        },
+        {
+          "id": "CON-03",
+          "name": "Console AAA Authorization",
+          "description": "AAA Authorization Method is Called",
+          "pattern": "authorization exec .+",
+          "match_type": "exists",
+          "severity": "high",
+          "remediation": {
+            "command": "authorization exec .+",
+            "context": "line",
+            "notes": "Configure AAA authorization for console"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Global Defaults",
+      "description": "Rules for global default settings",
+      "category": "security",
+      "rules": [
+        {
+          "id": "DEF-01",
+          "name": "BPDU Guard Default",
+          "description": "spanning-tree portfast bpduguard default must be enabled",
+          "pattern": "spanning-tree portfast bpduguard default",
+          "match_type": "exists",
+          "severity": "medium",
+          "remediation": {
+            "command": "spanning-tree portfast bpduguard default",
+            "context": "global",
+            "notes": "Enable BPDU guard by default for all portfast interfaces"
+          }
+        },
+        {
+          "id": "DEF-02",
+          "name": "Disable Console Logging",
+          "description": "Console logging must be disabled",
+          "pattern": "no logging console",
+          "match_type": "exists",
+          "severity": "low",
+          "remediation": {
+            "command": "no logging console",
+            "context": "global",
+            "notes": "Disable console logging"
+          }
+        },
+        {
+          "id": "DEF-03",
+          "name": "Disable Monitor Logging",
+          "description": "Monitor logging must be disabled",
+          "pattern": "no logging monitor",
+          "match_type": "exists",
+          "severity": "low",
+          "remediation": {
+            "command": "no logging monitor",
+            "context": "global",
+            "notes": "Disable monitor logging"
+          }
+        },
+        {
+          "id": "DEF-04",
+          "name": "Service Timestamps",
+          "description": "Service timestamp formatting",
+          "pattern": "service timestamps log datetime msec localtime show-timezone",
+          "match_type": "exists",
+          "severity": "low",
+          "remediation": {
+            "command": "service timestamps log datetime msec localtime show-timezone",
+            "context": "global",
+            "notes": "Configure service timestamps with timezone"
+          }
+        },
+        {
+          "id": "DEF-05",
+          "name": "Archive Configuration",
+          "description": "Archive logging should be enabled",
+          "pattern": "archive\\s+log\\s+config\\s+logging\\s+enable",
+          "match_type": "regex",
+          "severity": "low",
+          "remediation": {
+            "command": "archive\n log config\n  logging enable",
+            "context": "global",
+            "notes": "Enable configuration archive logging"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interface Configuration",
+      "description": "Rules for interface configurations",
+      "category": "interface",
+      "sections": {
+        "vty": {
+          "pattern": "^line vty [0-9]+ [0-9]+",
+          "context": "line"
+        },
+        "console": {
+          "pattern": "^line con 0$",
+          "context": "line"
+        },
+        "interface": {
+          "pattern": "^interface .+",
+          "context": "interface"
+        }
+      },
+      "interface_rules": [
+        {
+          "interface_type": "ap_trunk",
+          "detection_criteria": {
+            "all_of": [
+              {
+                "pattern": "switchport mode trunk",
+                "match_type": "exists"
+              },
+              {
+                "pattern": "switchport trunk native vlan 9",
+                "match_type": "exists"
+              },
+              {
+                "pattern": "description .*-AP.*",
+                "match_type": "regex"
+              }
+            ]
+          },
+          "rules": [
+            {
+              "id": "INT-APT-01",
+              "name": "AP Trunk Native VLAN",
+              "description": "AP trunk interfaces must have native VLAN 9",
+              "pattern": "switchport trunk native vlan 9",
+              "match_type": "exists",
+              "severity": "high",
+              "remediation": {
+                "command": "switchport trunk native vlan 9",
+                "context": "interface",
+                "notes": "Configure native VLAN 9 for AP trunk interfaces"
+              }
+            }
+          ]
+        },
+        {
+          "interface_type": "trunk",
+          "detection_criteria": {
+            "all_of": [
+              {
+                "pattern": "switchport mode trunk",
+                "match_type": "exists"
+              }
+            ],
+            "none_of": [
+              {
+                "pattern": "switchport trunk native vlan 9",
+                "match_type": "exists"
+              },
+              {
+                "pattern": "description .*-AP.*",
+                "match_type": "regex"
+              }
+            ]
+          },
+          "rules": [
+            {
+              "id": "INT-TRK-01",
+              "name": "Trunk Interface Description",
+              "description": "Trunk interfaces must have a description",
+              "pattern": "description .+",
+              "match_type": "regex",
+              "severity": "low",
+              "remediation": {
+                "command": "description <interface-description>",
+                "context": "interface",
+                "notes": "Add description to trunk interface"
+              }
+            },
+            {
+              "id": "INT-TRK-02",
+              "name": "Trunk Interface Allowed VLANs",
+              "description": "Trunk interfaces must have allowed VLANs configured",
+              "pattern": "switchport trunk allowed vlan .+",
+              "match_type": "regex",
+              "severity": "medium",
+              "remediation": {
+                "command": "switchport trunk allowed vlan <vlan-list>",
+                "context": "interface",
+                "notes": "Configure allowed VLANs for trunk interface"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

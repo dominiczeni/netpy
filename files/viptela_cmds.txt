@@ -1,0 +1,10 @@
+show control connections
+show control local-properties
+show system status
+show arp vpn 1
+show arp vpn 0
+show ip routes vpn 1
+show ip routes vpn 0
+show software
+show running-config
+show bfd sessions

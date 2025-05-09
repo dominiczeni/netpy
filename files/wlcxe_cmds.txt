@@ -1,0 +1,13 @@
+show cdp neigh
+show version
+show run
+show wireless client summ
+show ap summary
+show ap tag summary
+show ap dot11 5ghz summary
+show ap dot11 24ghz summary
+show ip route
+show int status
+show interface
+show inventory
+show etherchannel summ

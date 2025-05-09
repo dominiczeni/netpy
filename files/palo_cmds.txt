@@ -1,0 +1,12 @@
+show routing protocol ospf dumplsdb
+show routing protocol bgp loc-rib
+show routing protocol bgp rib-out
+show routing protocol bgp summary
+show interface all
+show arp all
+show session all
+show routing route
+show rule-hit-count vsys vsys-name vsys1 rule-base security rules all
+show rule-hit-count vsys vsys-name vsys1 rule-base nat rules all
+show panorama-status
+show config effective-running

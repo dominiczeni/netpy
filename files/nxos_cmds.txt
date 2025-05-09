@@ -1,0 +1,17 @@
+show ip bgp vrf Fabric_Underlay
+show ip bgp vrf Fabric_Underlay summ
+show ip route vrf Fabric_Underlay
+show ip route vrf inet
+show ip bgp vrf inet summ
+show ip bgp vrf inet
+show vpc
+show port-channel summ
+show cdp neigh
+show version
+show run
+show mac add
+show ip arp
+show ip route
+show int status
+show interface
+show inventory

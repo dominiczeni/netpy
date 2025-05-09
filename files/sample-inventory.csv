@@ -1,0 +1,5 @@
+name,hostname,platform,port,username,password,site,function,commands,jumpbox
+router1,10.1.1.1,cisco_ios,22,UN1,secure1,NYC,Core,commands.txt,
+router2,10.2.2.2,cisco_ios,22,UN1,secure2,NYC,Core,commands.txt,
+switch1,10.3.3.3,cisco_ios,22,UN2,secure3,LA,Access,commands.txt,JB1
+firewall1,10.4.4.4,paloalto_panos,22,UN3,secure4,NYC,Security,fw_commands.txt,JB1
